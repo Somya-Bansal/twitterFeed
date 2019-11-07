@@ -1,0 +1,41 @@
+.Card {
+  margin: 10px;
+  border: 1px solid red;
+  display: flex;
+  // flex-wrap: wrap;
+  // justify-content: flex-start;
+  .cardAvatar {
+    flex-basis: 5%;;
+    img {
+      height: 60px
+    }
+  }
+
+  .cardInfo {
+    flex-basis: 95%;
+    // width: 100%;
+    // display: flex;
+    // justify-content: flex-start;
+    .cardInfoProfile {
+      display: flex;
+      .profileUsername {
+        margin: 0 10px;
+      }
+
+      .profileHandle {
+        margin: 0 10px;
+
+      }
+
+      .timestamp {
+        margin: 0 10px;
+
+      }
+    }
+
+    .cardInfoTweet {
+      margin: 0 10px;
+
+    }
+  }
+}
