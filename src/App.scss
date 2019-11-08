@@ -1,4 +1,50 @@
-.app{
+.app {
   max-width: 1280px;
   margin: 0 auto;
+
+  .SearchContainer {
+    color: #00acee;
+
+    .SearchHeading {
+      padding: 10px;
+      border-bottom: 2px solid #00acee;
+      display: flex;
+      justify-content: space-between;
+
+      .searchAtText {}
+
+      .autoRefreshText {}
+    }
+
+    .SearchBarContainer {
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+
+      .SearchBar {
+        input {
+          border-radius: 2px;
+          margin: 5px;
+          width: 400px;
+          border-style: none;
+          border: 1px gray solid;
+          height: 35px;
+          padding:5px;
+        }
+      }
+
+      .SearchButton {
+
+        button {
+          border-radius: 2px;
+          width: 100px;
+          margin-top: 5px;
+          background: none;
+          height: 35px;
+          border-style: none;
+          background-color: #00acee;
+        }
+      }
+    }
+  }
 }
