@@ -20,14 +20,6 @@ class App extends Component {
       let url = 'https://aravindtwitter.herokuapp.com/twittersearch' + window.location.search
       this.getData(url);
     }
-    // else {
-    //   console.log(this.state.searchKey);
-    //   let url = 'https://aravindtwitter.herokuapp.com/twittersearch?key=' + this.state.searchKey;
-    //   this.intervalId = setInterval(() => this.getData(url), 5000);
-    // }
-    // console.log(window.location.search);
-
-    // this.loadData(); // also load one immediately
   }
 
   componentWillUnmount() {
@@ -36,11 +28,23 @@ class App extends Component {
 
   getData(url) {
     let counter = 30;
+    clearInterval(this.intervalId)
 
     this.intervalId = setInterval(() => {
       counter--;
       if (counter === 0) {
         counter = 30;
+        this.setState({
+          loading: true
+        })
+        fetch(url)
+          .then(res => res.json())
+          .then((data) => {
+            this.setState({
+              cards: data.statuses,
+              loading: false
+            })
+          })
       }
       if(counter >= 0){
         this.setState({
@@ -64,8 +68,9 @@ class App extends Component {
 
   handleSearch() {
     let url = 'https://aravindtwitter.herokuapp.com/twittersearch?key=' + this.state.searchKey;
-    this.intervalId = setInterval(() => this.getData(url), 30000);
     this.getData(url);
+    // clearInterval(this.intervalId);
+    // this.intervalId = setInterval(() => this.getData(url), 30000);
   }
 
   handleSearchKey = ev => {
