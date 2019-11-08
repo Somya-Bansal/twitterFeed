@@ -10,34 +10,61 @@ class App extends Component {
     this.state = {
       loading: false,
       cards: [],
-      searchKey: ''
+      searchKey: '',
+      secondCounter: 30
     }
     this.handleSearch = this.handleSearch.bind(this);
   }
-  componentDidMount(){
-    if(window.location.search){
+  componentDidMount() {
+    if (window.location.search) {
       let url = 'https://aravindtwitter.herokuapp.com/twittersearch' + window.location.search
       this.getData(url);
     }
-    console.log(window.location.search);
+    // else {
+    //   console.log(this.state.searchKey);
+    //   let url = 'https://aravindtwitter.herokuapp.com/twittersearch?key=' + this.state.searchKey;
+    //   this.intervalId = setInterval(() => this.getData(url), 5000);
+    // }
+    // console.log(window.location.search);
+
+    // this.loadData(); // also load one immediately
   }
 
-  getData(url){
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  getData(url) {
+    let counter = 30;
+
+    this.intervalId = setInterval(() => {
+      counter--;
+      if (counter === 0) {
+        counter = 30;
+      }
+      if(counter >= 0){
+        this.setState({
+          secondCounter: counter,
+        });
+      }
+    }, 1000);
+
     this.setState({
       loading: true
     })
     fetch(url)
-    .then(res => res.json())
-    .then((data) => {
-      this.setState({
-        cards: data.statuses,
-        loading: false
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({
+          cards: data.statuses,
+          loading: false
+        })
       })
-    })
   }
 
   handleSearch() {
     let url = 'https://aravindtwitter.herokuapp.com/twittersearch?key=' + this.state.searchKey;
+    this.intervalId = setInterval(() => this.getData(url), 30000);
     this.getData(url);
   }
 
@@ -55,7 +82,7 @@ class App extends Component {
           <div className="SearchHeading">
             <span className="searchAtText">Search @ Twitter</span>
             <span className="autoRefreshText">
-              Auto refresh in 27 seconds
+              Auto refresh in {this.state.secondCounter} seconds
           </span>
           </div>
           <div className="SearchBarContainer">
