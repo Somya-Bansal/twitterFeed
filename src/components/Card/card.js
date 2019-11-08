@@ -1,4 +1,5 @@
 import React from 'react';
+import LazyLoad from 'react-lazyload';
 
 import './card.scss';
 
@@ -6,18 +7,20 @@ class Card extends React.Component {
   render() {
     return (
       <div className="feed">
-        {this.props.loading ? 
+        {this.props.loading ?
           <>
             <h2>
               LOADING...
             </h2>
           </>
-        :
+          :
           this.props.cards.map((card) => (
             <div className="Card" key={card.id}>
-              <div className="cardAvatar">
-                <img src={card.user.profile_image_url_https} alt="" />
-              </div>
+              <LazyLoad height={200}>
+                <div className="cardAvatar">
+                  <img src={card.user.profile_image_url_https} alt="" />
+                </div>
+              </LazyLoad>
               <div className="cardInfo">
                 <div className="cardInfoProfile">
                   <div className="profileUsername">{card.user.name}</div>
